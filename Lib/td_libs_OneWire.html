@@ -1,0 +1,459 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>OneWire Arduino Library, connecting 1-wire devices (DS18S20, etc) to Teensy</title>
+<base target="_top">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style.css" type="text/css">
+<meta name="MSSmartTagsPreventParsing" content="TRUE">
+<link rel="stylesheet" href="td_libs.css" type="text/css">
+</head>
+<body bgcolor="#FFFFFF" text="#000000" link="#0000D0" vlink="#202080">
+<!--nav begin-->
+<!--htdig_noindex-->
+<table width="100%" cellspacing=2 cellpadding=0>
+<tr><td align=left rowspan=2>
+<table cellspacing=0  cellpadding=0 width=312>
+<tr><td align=right>
+<a href="#navend"><img src="/img/1x1.gif" width=1 height=10
+alt="skip navigational links" border=0
+hspace=0 vspace=0></a><a href="/"><img src="/img/logo.gif" alt="PJRC"
+width=276 height=31 border=0></a></td></tr>
+</table>
+</td><td align=right valign=top>
+</td></tr>
+<tr><td align=right valign=bottom>
+<small>
+<a href="https://www.pjrc.com/cgi-bin/store/step1">Shopping&nbsp;Cart</a>
+<img src="/img/a.gif" width=10 height=10 alt="" align=middle>
+<a href="https://www.pjrc.com/cgi-bin/store/step2">Checkout</a>
+<img src="/img/a.gif" width=10 height=10 alt="" align=middle>
+<a href="/cgi-bin/store/shipcost">Shipping&nbsp;Cost</a>
+<img src="/img/a.gif" width=10 height=10 alt="" align=middle>
+<a href="/cgi-bin/archive/summary">Download&nbsp;Website</a>
+</small>
+</td></tr></table>
+<table cellspacing=0 cellpadding=6 border=0 width="100%">
+<tr bgcolor="#D0E0FF">
+<td align=center><a href="/">Home</a></td>
+<td align=center><a href="/tech/mp3/">MP3 Player</a></td>
+<td align=center><a href="/tech/8051/">8051 Tools</a></td>
+<td align=center><a href="/tech/">All Projects</a></td>
+<td align=center><a href="/store/">PJRC Store</a></td>
+<td align=center><a href="/map.html">Site Map</a></td>
+</tr></table>
+<table cellspacing=0 cellpadding=2 width="100%">
+<tr bgcolor="#F0F0F0"><td align=left>
+<small>You are here:
+<a href="/teensy/">Teensy</a>
+<img src="/img/b.gif" width=10 height=10 alt="">
+<a href="teensyduino.html">Teensyduino</a>
+<img src="/img/b.gif" width=10 height=10 alt="">
+<a href="td_libs.html">Libraries</a>
+<img src="/img/b.gif" width=10 height=10 alt="">
+<span style="background-color: #B0E4A8">OneWire</span>
+</small></td><td align=right>
+<!-- <small><a href="/search/">Search PJRC</a></small>
+ -->
+</td></tr></table>
+<p>
+<table width="100%" border=0 cellspacing=0 cellpadding=0>
+<tr><td width=172 valign=top>
+<table width=172 border=0 cellspacing=0 cellpadding=6>
+<tr><td bgcolor="#D0E0FF" align=center>
+<big><b>PJRC Store</b></big>
+</td></tr>
+<tr><td bgcolor="#F0F0F0">
+<small>
+<img src="/img/a.gif" width=10 height=10 alt="" align=middle>
+<a href="/store/teensy31.html">Teensy 3.1, $19.80</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="" align=middle>
+<a href="/store/teensy.html">Teensy 2.0, $16.00</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="" align=middle>
+<a href="/store/teensypp.html">Teensy++ 2.0, $24.00</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="" align=middle>
+<a href="/store/cable_usb_mini_b.html">USB Cable, $4.00</a><br>
+</small></td></tr>
+<tr><td height=15></td></tr>
+<tr><td bgcolor="#D0E0FF" align=center>
+<big><b>Teensy</b></big>
+</td></tr>
+<tr><td bgcolor="#F0F0F0">
+<small>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="index.html">Main Page</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="teensy31.html">Teensy 3.1</a><br>
+<a href="first_use.html"><img src="/img/c.gif" width=10 height=10 alt="" border=0>
+<b>Getting Started</b></a><br>
+<a href="pins.html"><img src="/img/c.gif" width=10 height=10 alt="" border=0>
+<b>How-To Tips</b></a><br>
+<a href="usb_debug_only.html"><img src="/img/c.gif" width=10 height=10 alt="" border=0>
+<b>Code Library</b></a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="projects.html">Projects</a><br>
+<img src="/img/b.gif" width=10 height=10 alt="">
+<b>Teensyduino</b><br>
+</small>
+<div style="padding-left: 1.2em">
+<small>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="teensyduino.html">Main</a><br>
+<a href="tutorial.html"><img src="/img/c.gif" width=10 height=10 alt="" border=0>
+<b>Tutorial</b></a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_download.html">Download+Install</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_usage.html">Basic Usage</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_digital.html">Digital I/O</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_pulse.html">PWM & Tone</a><br>
+<a href="td_timing.html"><img src="/img/c.gif" width=10 height=10 alt="" border=0>
+<b>Timing</b></a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_serial.html">USB Serial</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_keyboard.html">USB Keyboard</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_mouse.html">USB Mouse</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_joystick.html">USB Joystick</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_midi.html">USB MIDI</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_flightsim.html">USB Flight Sim</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_uart.html">UART Serial</a><br>
+<img src="/img/b.gif" width=10 height=10 alt="">
+<b>Libraries</b><br>
+</small>
+<div style="padding-left: 1.2em">
+<small>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs.html">Main List</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_GLCD.html">GLCD</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_LiquidCrystal.html">LiquidCrystal</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_OctoWS2811.html">OctoWS2811</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_FastSPI_LED.html">FastSPI_LED</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_Matrix.html">Matrix/Sprite</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_LedDisplay.html">LedDisplay</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_LedControl.html">LedControl</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_DogLcd.html">DogLcd</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_ST7565.html">ST7565</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_AltSoftSerial.html">AltSoftSerial</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_NewSoftSerial.html">NewSoftSerial</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_SoftwareSerial.html">SoftwareSerial</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_MIDI.html">MIDI</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_PS2Keyboard.html">PS2Keyboard</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_DmxSimple.html">DmxSimple</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_Firmata.html">Firmata</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_Wire.html">Wire</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_SPI.html">SPI</a><br>
+<img src="/img/b.gif" width=10 height=10 alt="selected">
+<span style="background-color: #B0E4A8">OneWire</span><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_XBee.html">XBee</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_VirtualWire.html">VirtualWire</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_x10.html">X10</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_IRremote.html">IRremote</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_TinyGPS.html">TinyGPS</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_USBHostShield.html">USBHostShield</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_Ethernet.html">Ethernet</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_Bounce.html">Bounce</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_Keypad.html">Keypad</a><br>
+<a href="td_libs_Audio.html"><img src="/img/c.gif" width=10 height=10 alt="" border=0>
+<b>Audio</b></a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_Encoder.html">Encoder</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_Ping.html">Ping</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_CapacitiveSensor.html">CapacitiveSensor</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_FreqCount.html">FreqCount</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_FreqMeasure.html">FreqMeasure</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_Servo.html">Servo</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_PulsePosition.html">PulsePosition</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_Stepper.html">Stepper</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_AccelStepper.html">AccelStepper</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_FrequencyTimer2.html">FrequencyTimer2</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_Tlc5940.html">Tlc5940</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_SoftPWM.html">SoftPWM</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_ShiftPWM.html">ShiftPWM</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_Time.html">Time</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_TimeAlarms.html">TimeAlarms</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_DS1307RTC.html">DS1307RTC</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_Metro.html">Metro</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_TimerOne.html">TimerOne</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_MsTimer2.html">MsTimer2</a><br>
+<img src="/img/a.gif" width=10 height=10 alt="">
+<a href="td_libs_EEPROM.html">EEPROM</a><br>
+</small>
+</div>
+<small>
+</small>
+</div>
+<small>
+<a href="pinout.html"><img src="/img/c.gif" width=10 height=10 alt="" border=0>
+<b>Reference</b></a><br>
+</small></td></tr>
+<tr><td height=60></td></tr>
+</table><br>
+<a name="navend"> </a>
+</td>
+<td width=18></td>
+<td valign=top>
+<!--/htdig_noindex-->
+<!--nav end-->
+
+
+<h1>OneWire Library</h1>
+
+OneWire lets you access 1-wire devices made by Maxim/Dallas, such as temperature
+sensors and ibutton secure memory.  For temperature sensors, the
+DallasTemperature library can be used with this library.
+<p>
+<b>Download</b>: <a href="arduino_libraries/OneWire.zip">OneWire.zip</a> <small>(Version 2.2)</small>
+<p>
+OneWire communicates with 1-wire devices.  To act as a 1-wire device,
+use the <a href="http://forum.pjrc.com/threads/23939-Strange-behavior-on-the-Onewireslave-library?p=33608&viewfull=1#post33608">OneWireSlave library</a>.
+
+<h2>Hardware Requirements</h2>
+
+OneWire requires a single 4.7K pullup resistor, connected between the pin and +5 volts.
+Then just connect each 1-wire device to the pin and ground.  Some 1-wire devices can also
+connect to power, or get their power from the signal wire.  Please refer to the specifications
+for the 1-wire devices you are using.
+<p>
+<center><img src="td_libs_OneWire_1.jpg"></center>
+
+<h2>Basic Usage</h2>
+
+<span style="color: #CC6600;">OneWire</span> myWire(pin)
+<p class=desc>
+Create the OneWire object, using a specific pin.  Even though you can connect
+many 1 wire devices to the same pin, if you have a large number, smaller groups
+each on their own pin can help isolate wiring problems.  You can create
+multiple OneWire objects, one for each pin.
+</p>
+myWire.<span style="color: #CC6600;">search</span>(addrArray)
+<p class=desc>
+Search for the next device.  The addrArray is an 8 byte array.  If a device is
+found, addrArray is filled with the device's address and true is returned.  If
+no more devices are found, false is returned.
+</p>
+myWire.<span style="color: #CC6600;">reset_search</span>()
+<p class=desc>
+Begin a new search.  The next use of search will begin at the first device.
+</p>
+myWire.<span style="color: #CC6600;">reset</span>()
+<p class=desc>
+Reset the 1-wire bus.  Usually this is needed before communicating with any device.
+</p>
+myWire.<span style="color: #CC6600;">select</span>(addrArray)
+<p class=desc>
+Select a device based on its address.  After a reset, this is needed to
+choose which device you will use, and then all communication will be with
+that device, until another reset.
+</p>
+myWire.<span style="color: #CC6600;">skip</span>()
+<p class=desc>
+Skip the device selection.  This only works if you have a single device, but you
+can avoid searching and use this to immediatly access your device.
+</p>
+myWire.<span style="color: #CC6600;">write</span>(num); 
+<p class=desc>
+Write a byte.
+</p>
+myWire.<span style="color: #CC6600;">write</span>(num, 1); 
+<p class=desc>
+Write a byte, and leave power applied to the 1 wire bus.
+</p>
+myWire.<span style="color: #CC6600;">read</span>()
+<p class=desc>
+Read a byte.
+</p>
+myWire.<span style="color: #CC6600;">crc8</span>(dataArray, length)
+<p class=desc>
+Compute a CRC check on an array of data.
+</p>
+
+
+<h2>Example Program</h2>
+
+
+<center><img src="td_libs_OneWire_2.png"></center>
+<p>
+You can open the example code from the
+<b>File &gt; Examples &gt; OneWire &gt; sample</b> menu.
+<p>
+<pre>
+#include&nbsp;&lt;<span style="color: #CC6600;">OneWire</span>.h&gt;
+
+<span style="color: #7E7E7E;">/*&nbsp;DS18S20&nbsp;Temperature&nbsp;chip&nbsp;i/o&nbsp;*/</span>
+
+<span style="color: #CC6600;">OneWire</span>  ds(10);  <span style="color: #7E7E7E;">// on pin 10</span>
+
+<span style="color: #CC6600;">void</span> <span style="color: #CC6600;"><b>setup</b></span>(<span style="color: #CC6600;">void</span>) {
+&nbsp;&nbsp;<span style="color: #CC6600;">Serial</span>.<span style="color: #CC6600;">begin</span>(9600);
+}
+
+<span style="color: #CC6600;">void</span> <span style="color: #CC6600;"><b>loop</b></span>(<span style="color: #CC6600;">void</span>) {
+&nbsp;&nbsp;<span style="color: #CC6600;">byte</span> i;
+&nbsp;&nbsp;<span style="color: #CC6600;">byte</span> present = 0;
+&nbsp;&nbsp;<span style="color: #CC6600;">byte</span> data[12];
+&nbsp;&nbsp;<span style="color: #CC6600;">byte</span> addr[8];
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #CC6600;">if</span> ( !ds.<span style="color: #CC6600;">search</span>(addr)) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #CC6600;">Serial</span>.<span style="color: #CC6600;">print</span>(<span style="color: #006699;">"No more addresses.\n"</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;ds.<span style="color: #CC6600;">reset_search</span>();
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #CC6600;">delay</span>(250);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #CC6600;">return</span>;
+&nbsp;&nbsp;}
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #CC6600;">Serial</span>.<span style="color: #CC6600;">print</span>(<span style="color: #006699;">"R="</span>);
+&nbsp;&nbsp;<span style="color: #CC6600;">for</span>( i = 0; i &lt; 8; i++) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #CC6600;">Serial</span>.<span style="color: #CC6600;">print</span>(addr[i], <span style="color: #006699;">HEX</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #CC6600;">Serial</span>.<span style="color: #CC6600;">print</span>(<span style="color: #006699;">" "</span>);
+&nbsp;&nbsp;}
+
+&nbsp;&nbsp;<span style="color: #CC6600;">if</span> ( <span style="color: #CC6600;">OneWire</span>::<span style="color: #CC6600;">crc8</span>( addr, 7) != addr[7]) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #CC6600;">Serial</span>.<span style="color: #CC6600;">print</span>(<span style="color: #006699;">"CRC is not valid!\n"</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #CC6600;">return</span>;
+&nbsp;&nbsp;}
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #CC6600;">if</span> ( addr[0] != 0x10) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #CC6600;">Serial</span>.<span style="color: #CC6600;">print</span>(<span style="color: #006699;">"Device is not a DS18S20 family device.\n"</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #CC6600;">return</span>;
+&nbsp;&nbsp;}
+
+&nbsp;&nbsp;<span style="color: #7E7E7E;">// The DallasTemperature library can do all this work for you!</span>
+
+&nbsp;&nbsp;ds.<span style="color: #CC6600;">reset</span>();
+&nbsp;&nbsp;ds.<span style="color: #CC6600;">select</span>(addr);
+&nbsp;&nbsp;ds.<span style="color: #CC6600;">write</span>(0x44,1);         <span style="color: #7E7E7E;">// start conversion, with parasite power on at the end</span>
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #CC6600;">delay</span>(1000);     <span style="color: #7E7E7E;">// maybe 750ms is enough, maybe not</span>
+&nbsp;&nbsp;<span style="color: #7E7E7E;">// we might do a ds.depower() here, but the reset will take care of it.</span>
+&nbsp;&nbsp;
+&nbsp;&nbsp;present&nbsp;=&nbsp;ds.<span style="color: #CC6600;">reset</span>();
+&nbsp;&nbsp;ds.<span style="color: #CC6600;">select</span>(addr);    
+&nbsp;&nbsp;ds.<span style="color: #CC6600;">write</span>(0xBE);         <span style="color: #7E7E7E;">// Read Scratchpad</span>
+
+&nbsp;&nbsp;<span style="color: #CC6600;">Serial</span>.<span style="color: #CC6600;">print</span>(<span style="color: #006699;">"P="</span>);
+&nbsp;&nbsp;<span style="color: #CC6600;">Serial</span>.<span style="color: #CC6600;">print</span>(present,<span style="color: #006699;">HEX</span>);
+&nbsp;&nbsp;<span style="color: #CC6600;">Serial</span>.<span style="color: #CC6600;">print</span>(<span style="color: #006699;">" "</span>);
+&nbsp;&nbsp;<span style="color: #CC6600;">for</span> ( i = 0; i &lt; 9; i++) {           <span style="color: #7E7E7E;">// we need 9 bytes</span>
+&nbsp;&nbsp;&nbsp;&nbsp;data[i]&nbsp;=&nbsp;ds.<span style="color: #CC6600;">read</span>();
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #CC6600;">Serial</span>.<span style="color: #CC6600;">print</span>(data[i], <span style="color: #006699;">HEX</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #CC6600;">Serial</span>.<span style="color: #CC6600;">print</span>(<span style="color: #006699;">" "</span>);
+&nbsp;&nbsp;}
+&nbsp;&nbsp;<span style="color: #CC6600;">Serial</span>.<span style="color: #CC6600;">print</span>(<span style="color: #006699;">" CRC="</span>);
+&nbsp;&nbsp;<span style="color: #CC6600;">Serial</span>.<span style="color: #CC6600;">print</span>( <span style="color: #CC6600;">OneWire</span>::<span style="color: #CC6600;">crc8</span>( data, 8), <span style="color: #006699;">HEX</span>);
+&nbsp;&nbsp;<span style="color: #CC6600;">Serial</span>.<span style="color: #CC6600;">println</span>();
+}
+</pre>
+
+
+<h2>1-Wire Information</h2>
+
+<a href="http://www.maxim-ic.com/products/1-wire/">Maxim Semiconductor's 1-Wire Products</a>
+<p>
+<a href="http://en.wikipedia.org/wiki/1-Wire">Wikipedia explains 1-wire protocol</a>
+<p>
+<a href="http://www.arunet.co.uk/tkboyd/e1didx.htm">Tom Boyd explains 1-wire protocol</a>
+<p>
+<a href="http://milesburton.com/index.php?title=Dallas_Temperature_Control_Library">Dallas Temperature Control Library</a>
+<p>
+<a href="http://www.arduino.cc/playground/Learning/OneWire">Arduino's OneWire page</a>
+(warning: has buggy version)
+<p>
+<a href="http://www.weathertoys.net/weathertoys/main.html">Weather Toys</a> - community using 1-wire devices.
+
+<!--
+<h2><a name="bugs">Known Bugs</a></h2>
+
+The DS18x20_Temperature does not properly handle negative Celsius temperatures.  Remove "unsigned" from the raw variable on line 88, for correct results below zero degrees Celsius.
+<p>
+The DS18x20_Temperature does not properly handle lower resolution (faster) modes on some chips.  Thanks to Pete Hardie for this fix.  Replace this:
+<pre>
+  } else {
+    byte cfg = (data[4] &amp; 0x60);
+    if (cfg == 0x00) raw = raw &lt;&lt; 3;  // 9 bit resolution, 93.75 ms
+    else if (cfg == 0x20) raw = raw &lt;&lt; 2; // 10 bit res, 187.5 ms
+    else if (cfg == 0x40) raw = raw &lt;&lt; 1; // 11 bit res, 375 ms
+    // default is 12 bit resolution, 750 ms conversion time
+  }
+</pre>
+With this:
+<pre>
+  } else {
+    unsigned char t_mask[4] = {0x7, 0x3, 0x1, 0x0};
+    byte cfg = (data[4] &amp; 0x60) &gt;&gt; 5;
+    raw &amp;= ~t_mask[cfg];
+  }
+</pre>
+-->
+
+<h2>History &amp; Credits</h2>
+
+Jim Studt wrote OneWire in 2007, originally based on code by Derek Yerger.
+<p>
+Tom Pollard added CRC code which eliminated the need for a 256 byte array (in RAM).
+<p>
+"RJL20" added the skip function.
+<p>
+Robin James rewrote the search function, posting his version 
+<a href="http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1238032295/27#27">here</a>.
+<p>
+Paul Stoffregen rewrote the I/O routines for interrupt safety, replaced search with
+Robin James's code, applied several small
+optimizations, and started calling it "version 2.0" to distinguish from the many
+buggy copies online.
+
+
+
+</td></tr></table></body></html>
